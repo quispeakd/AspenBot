@@ -17,6 +17,8 @@ const {
 
 const { spawn } = require('child_process');
 
+const ffmpegPath = require('ffmpeg-static');
+
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -56,7 +58,7 @@ async function playAspen(voiceChannel) {
         return false;
     }
 
-    const ffmpeg = spawn('ffmpeg', [
+    const ffmpeg = spawn(ffmpegPath, [
         '-reconnect', '1',
         '-reconnect_streamed', '1',
         '-reconnect_delay_max', '5',
@@ -64,14 +66,16 @@ async function playAspen(voiceChannel) {
         '-i',
         ASPEN_STREAM,
 
-        '-f', 'opus',
+        '-f', 's16le',
         '-ar', '48000',
         '-ac', '2',
         'pipe:1'
 
     ]);
 
-    const resource = createAudioResource(ffmpeg.stdout);
+    const resource = createAudioResource(ffmpeg.stdout, {
+    inputType: StreamType.Raw
+});
 
     player = createAudioPlayer({
         behaviors: {
