@@ -66,8 +66,10 @@ async function playAspen(voiceChannel) {
     '-i',
     ASPEN_STREAM,
 
-    '-c:a', 'libopus',
-    '-f', 'opus',
+    '-analyzeduration', '0',
+    '-loglevel', '0',
+
+    '-f', 's16le',
     '-ar', '48000',
     '-ac', '2',
 
@@ -75,7 +77,7 @@ async function playAspen(voiceChannel) {
 ]);
 
     const resource = createAudioResource(ffmpeg.stdout, {
-    inputType: StreamType.Opus
+    inputType: StreamType.Raw
 });
 
     player = createAudioPlayer({
