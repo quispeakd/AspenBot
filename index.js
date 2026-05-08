@@ -93,7 +93,7 @@ async function playAspen(voiceChannel) {
 client.once('ready', async () => {
 
     console.log(`Bot conectado como ${client.user.tag}`);
-
+   
   });
 
 client.on('messageCreate', async message => {
@@ -137,6 +137,7 @@ client.on('messageCreate', async message => {
         }
     }
 
+  
     // =========================
     // !chauaspen
     // =========================
@@ -157,5 +158,4 @@ client.on('messageCreate', async message => {
         );
     }
 });
-
 client.login(process.env.TOKEN);
