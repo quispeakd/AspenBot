@@ -59,22 +59,23 @@ async function playAspen(voiceChannel) {
     }
 
     const ffmpeg = spawn(ffmpegPath, [
-        '-reconnect', '1',
-        '-reconnect_streamed', '1',
-        '-reconnect_delay_max', '5',
+    '-reconnect', '1',
+    '-reconnect_streamed', '1',
+    '-reconnect_delay_max', '5',
 
-        '-i',
-        ASPEN_STREAM,
+    '-i',
+    ASPEN_STREAM,
 
-        '-f', 's16le',
-        '-ar', '48000',
-        '-ac', '2',
-        'pipe:1'
+    '-c:a', 'libopus',
+    '-f', 'opus',
+    '-ar', '48000',
+    '-ac', '2',
 
-    ]);
+    'pipe:1'
+]);
 
     const resource = createAudioResource(ffmpeg.stdout, {
-    inputType: StreamType.Raw
+    inputType: StreamType.Opus
 });
 
     player = createAudioPlayer({
