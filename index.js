@@ -56,7 +56,7 @@ async function playAspen(voiceChannel) {
         return false;
     }
 
-    const ffmpeg = spawn('C:\\ffmpeg\\ffmpeg-8.1.1-essentials_build\\bin\\ffmpeg.exe', [
+    const ffmpeg = spawn('ffmpeg', [
         '-reconnect', '1',
         '-reconnect_streamed', '1',
         '-reconnect_delay_max', '5',
