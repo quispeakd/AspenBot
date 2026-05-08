@@ -93,7 +93,7 @@ async function playAspen(voiceChannel) {
 
     return true;
 }
-client.once('ready', async () => {
+client.once('clientReady', async () => {
 
     console.log(`Bot conectado como ${client.user.tag}`);
    
