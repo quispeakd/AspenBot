@@ -59,26 +59,24 @@ async function playAspen(voiceChannel) {
     }
 
     const ffmpeg = spawn(ffmpegPath, [
-    '-reconnect', '1',
-    '-reconnect_streamed', '1',
-    '-reconnect_delay_max', '5',
+        '-i',
+        ASPEN_STREAM,
 
-    '-i',
-    ASPEN_STREAM,
+        '-f',
+        's16le',
 
-    '-analyzeduration', '0',
-    '-loglevel', '0',
+        '-ar',
+        '48000',
 
-    '-f', 's16le',
-    '-ar', '48000',
-    '-ac', '2',
+        '-ac',
+        '2',
 
-    'pipe:1'
-]);
+        'pipe:1'
+    ]);
 
     const resource = createAudioResource(ffmpeg.stdout, {
-    inputType: StreamType.Raw
-});
+        inputType: StreamType.Raw
+    });
 
     player = createAudioPlayer({
         behaviors: {
@@ -87,7 +85,11 @@ async function playAspen(voiceChannel) {
     });
 
     player.on('error', error => {
-        console.log(error);
+        console.log('PLAYER ERROR:', error);
+    });
+
+    ffmpeg.stderr.on('data', data => {
+        console.log('FFMPEG:', data.toString());
     });
 
     player.play(resource);
@@ -96,6 +98,7 @@ async function playAspen(voiceChannel) {
 
     return true;
 }
+
 client.once('clientReady', async () => {
 
     console.log(`Bot conectado como ${client.user.tag}`);
