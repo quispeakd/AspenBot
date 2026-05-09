@@ -29,7 +29,7 @@ const client = new Client({
 });
 
 const ASPEN_STREAM =
-'https://24283.live.streamtheworld.com/ASPENAAC.aac';
+'https://playerservices.streamtheworld.com/api/livestream-redirect/ASPENAAC.aac';
 
 let connection;
 let player;
